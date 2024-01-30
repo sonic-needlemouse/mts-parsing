@@ -2,6 +2,8 @@ import scrapy
 
 
 def parse_film_data(response):
+    """Function for parsing of necessary values"""
+
     title = response.xpath('//*[@class="infobox-above"]//text()').getall()[-1]
     genre = response.xpath('//*[@data-wikidata-property-id="P136"]//text()').getall()
     director = response.xpath('//*[@data-wikidata-property-id="P57"]//text()').getall()
@@ -21,11 +23,15 @@ def parse_film_data(response):
 
 
 class WikiMoviesSpider(scrapy.Spider):
+    """Spider for wiki movies pages scrapping"""
+
     name = "wiki_movies"
     allowed_domains = ["ru.wikipedia.org"]
     start_urls = ["https://ru.wikipedia.org/wiki/Категория:Фильмы_по_алфавиту"]
 
     def parse(self, response):
+        """Initiation of the parsing and movement through the links"""
+        
         links = response.xpath(
             '//div[@id="mw-pages"]//div[@class="mw-category-group"]//a/@href'
         ).getall()
