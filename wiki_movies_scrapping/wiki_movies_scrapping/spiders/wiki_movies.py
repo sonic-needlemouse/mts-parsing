@@ -1,5 +1,6 @@
 import scrapy
 
+
 def parse_film_data(response):
     title = response.xpath('//*[@class="infobox-above"]//text()').getall()[-1]
     genre = response.xpath('//*[@data-wikidata-property-id="P136"]//text()').getall()
